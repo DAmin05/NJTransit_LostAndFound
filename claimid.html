@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Claim Status</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Link to external CSS file -->
-    <link rel="stylesheet" href="style.css">
     <script>
         function validateClaimStatus() {
             const claimID = document.getElementById('claim-id').value;
@@ -25,36 +24,42 @@
         }
     </script>
 </head>
-<body class="bg-white flex items-center justify-center min-h-screen">
-    <!-- Add header with NJ TRANSIT blue and logo -->
-    <header class="header">
-        <div class="container mx-auto flex justify-start">
+<body class="bg-white min-h-screen flex flex-col font-sans">
+    <!-- Fixed Header with NJ TRANSIT blue and logo -->
+    <header class="bg-[#002D72] w-full py-4 fixed top-0 z-10">
+        <div class="container mx-auto px-4 flex justify-start">
             <a href="https://www.njtransit.com" target="_blank">
-                <img src="image-removebg-preview (4).png" alt="NJ TRANSIT Logo" class="logo">
+                <img src="image-removebg-preview (4).png" alt="NJ TRANSIT Logo" class="h-16">
             </a>
         </div>
     </header>
 
-    <div class="form-container">
-        <h2 class="form-title">Claim Status</h2>
-        <form class="space-y-4 mt-6" onsubmit="event.preventDefault(); validateClaimStatus();">
-            <div>
-                <label for="claim-id" class="form-label">Claim ID</label>
-                <input 
-                    type="text" 
-                    id="claim-id" 
-                    class="form-input" 
-                    placeholder="Enter your 10-digit Claim ID" 
-                    maxlength="10" 
-                    pattern="\d{10}" 
-                    required>
-            </div>
-            <button 
-                type="submit" 
-                class="submit-button">
-                Check Status
-            </button>
-        </form>
+    <!-- Form Container -->
+    <div class="flex-grow flex items-center justify-center mt-20">
+        <div class="bg-gray-100 p-10 border-2 border-[#002D72] rounded-lg w-[400px] text-center">
+            <!-- Claim Status Title -->
+            <h2 class="text-2xl font-bold text-[#FFCB05] mb-6">Claim Status</h2>
+            <form class="space-y-4" onsubmit="event.preventDefault(); validateClaimStatus();">
+                <!-- Claim ID Input -->
+                <div class="flex flex-col items-start">
+                    <label for="claim-id" class="text-[#002D72] text-lg mb-2">Claim ID</label>
+                    <input 
+                        type="text" 
+                        id="claim-id" 
+                        class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#FFCB05] focus:border-transparent"
+                        placeholder="Enter your 10-digit Claim ID" 
+                        maxlength="10" 
+                        pattern="\d{10}" 
+                        required>
+                </div>
+                <!-- Submit Button -->
+                <button 
+                    type="submit" 
+                    class="w-full bg-[#002D72] text-white py-3 rounded font-bold hover:bg-[#FFCB05] transition">
+                    Check Status
+                </button>
+            </form>
+        </div>
     </div>
 </body>
 </html>
