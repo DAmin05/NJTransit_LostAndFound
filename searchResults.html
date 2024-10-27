@@ -2,9 +2,8 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Employee Portal</title>
+        <title>Search Results</title>
     <style>
-        /* General Styles */
         body {
             font-family: 'Roboto Condensed', sans-serif;
             position: relative; /* Needed for the pseudo-element */
@@ -33,18 +32,198 @@
 
         /* Navbar */
         .navbar {
-            background-color: #002D72;
-            padding: 16px;
-            height: 70px;
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            z-index: 1; /* Ensure navbar is above background */
+            background-color: #002D72; /* Dark background for the navbar */
+            overflow: hidden; /* Clear floats */
+        }
+
+        .navbar a {
+            float: left; /* Align links to the left */
+            display: block; /* Block elements */
+            color: white; /* Text color */
+            text-align: center; /* Center text */
+            padding: 14px 16px; /* Padding around links */
+            text-decoration: none; /* Remove underline */
+        }
+
+        .navbar a:hover {
+            background-color: #575757; /* Darker background on hover */
         }
 
         .navbar .logo {
-            height: 70px;
+            float: left; /* Align logo to the left */
+            height: 65px; /* Set a fixed height for the logo */
+            margin-right: 16px; /* Space between logo and links */
         }
+
+        /* Responsive design */
+        @media screen and (max-width: 600px) {
+            .navbar a {
+                float: none; /* Stack links on small screens */
+                display: block; /* Make links full width */
+                text-align: left; /* Align text to the left */
+            }
+        }
+
+
+
+        @import url("https://fonts.googleapis.com/css2?family=Reggae+One&family=Source+Sans+Pro&family=Oleo+Script&family=Dela+Gothic+One&family=Atma&display=swap");
+
+/* ----- RESET ----- */
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+
+/* Navbar */
+
+
+#brand-name {
+	color: #ededed;
+	font-family: "Reggae One", cursive;
+	font-size: 1.2rem;
+}
+
+.tagline {
+	color: #b3b3b3;
+	font-family: "Oleo Script", cursive;
+	font-size: 0.9rem;
+}
+
+h2,
+.category-description {
+	background-image: linear-gradient(90deg, #f2bc18, #fffc2e);
+	width: calc(100% - 4rem);
+	max-width: 400px; /* Smaller max-width */
+	padding: 1.5rem;
+	transform: translateY(1rem);
+	margin-top: 1rem; /* Spacing below header */
+}
+
+h2 {
+	color: rgba(0, 0, 0, 0.8);
+	font-family: "Dela Gothic One", cursive;
+	font-size: 1.4rem;
+	padding-bottom: 1rem;
+	margin-bottom: 0;
+	border-radius: 2.1rem 2.1rem 0 0;
+}
+
+.category-description {
+	color: rgba(0, 0, 0, 0.45);
+	font-family: "Atma", cursive;
+	font-size: 1rem;
+	padding-top: 0;
+	padding-bottom: 4rem;
+	margin-top: 0;
+	border-radius: 0 0 2.1rem 2.1rem;
+}
+
+.item h3 {
+	font-size: 1.2rem; /* Smaller font */
+	margin-bottom: 0.4rem;
+}
+
+.item {
+    background-color: white;
+    width: calc(100% - 5rem);
+    max-width: 350px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    display: flex;
+    flex-direction: column;
+    border-radius: 1.5rem;
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(1.2rem);
+    position: relative;
+}
+
+.item h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.4rem;
+}
+
+.item figure {
+    width: 100%;
+    height: 200px; /* Set height to match the image and overlay */
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 1.2rem;
+    position: relative; /* Required for hover effect positioning */
+}
+
+.item figure img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: inherit; /* Matches figure's border-radius */
+}
+
+.description {
+    color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(0, 0, 0, 0.7);
+    width: 100%;
+    height: 100%;
+    line-height: 1.4rem;
+    padding: 1.5rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: inherit; /* Matches figure's border-radius */
+    transition: opacity 200ms ease-out;
+    position: absolute;
+}
+
+.item figure:hover .description, .description:hover {
+    opacity: 1;
+}
+
+
+.item button {
+	width: 100%;
+	color: #d99904;
+	font-size: 1rem; /* Smaller font */
+	font-weight: bold;
+	background-image: linear-gradient(#ffe46e 0%, #ffd936 30% 80%, #ffcd19 100%);
+	padding: 1rem; /* Smaller padding */
+	border: solid 1px #c98d00;
+	outline: none;
+	border-radius: 2rem;
+	transition: filter 500ms ease-out;
+}
+
+.item button:hover {
+	filter: brightness(90%);
+}
+
+input {
+	padding: 0.6rem 1rem;
+	border: solid 1px #efefef;
+	margin-bottom: 1rem;
+	outline: none;
+	border-radius: 0.6rem;
+	transition: box-shadow 200ms ease-out;
+}
+
+input:focus,
+input:active {
+	box-shadow: 0 0 0 0.25rem rgba(43, 153, 255, 0.5);
+}
+
+label {
+	margin-bottom: 0.5rem;
+	font-size: 0.85rem;
+}
+
         </style>
     </head>
     <body>
@@ -55,5 +234,22 @@
                 <img src="image-removebg-preview (4).png" alt="NJ TRANSIT Logo" class="logo">
             </a>
         </header>
+        <div class="item">
+            <h3>(Category)</h3>
+            <figure>
+                <img src="https://assets.codepen.io/t-1/maksim-larin-jZyacqaR4iI-unsplash.jpg" alt="a pair of blue and red ASICS sneakers">
+                <!-- full size image at: https://images.unsplash.com/photo-1560072810-1cffb09faf0f -->
+        
+            </figure>
+            <p class="description">
+                Suede fabric pointed toe stylish cut front low heel sharp on-trend toe point raised heel drop sides unique silhouette. Bow detail metallic eyelets leather lining luxurious finish classic courts formal slingback square toe contrasting cap. Lace up fastening bow detailing high stiletto heel leather lining beautiful lace upper elegant peep toe t-bar strap. Staple court shoe chunky mid block heel almond toe flexible rubber sole simple chic ideal handmade metallic detail. Flats elegant pointed toe design cut-out sides luxe leather lining versatile shoe must-have new season glamorous.</p>
+            <label for="size-select">Bus/Train Line:</label>
+            <input name="route" id="size-select"></input>
+            <label for="color-select">Station Name:</label>
+            <input name="station" id="size-select"></input>
+            <label for="quantity-select">Date Founded:</label>
+            <input name="date" id="quantity-select"></input>
+            <button type="button">Add to Cart</button>
+        </div>
         </body>
 </html>
