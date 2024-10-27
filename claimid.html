@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claim Status</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="style.css">
+    <script>
+        function validateClaimStatus() {
+            const claimID = document.getElementById('claim-id').value;
+            const claimIDPattern = /^\d{10}$/;
+
+            if (!claimIDPattern.test(claimID)) {
+                alert('Claim ID must be 10 digits.');
+                return;
+            }
+
+            if (claimID === '1234567890') { // Example claim ID for testing
+                alert('Claim Status Accessed');
+            } else {
+                alert('Invalid Claim ID');
+            }
+        }
+    </script>
+</head>
+<body class="bg-white flex items-center justify-center min-h-screen">
+    <!-- Add header with NJ TRANSIT blue and logo -->
+    <header class="header">
+        <div class="container mx-auto flex justify-start">
+            <a href="https://www.njtransit.com" target="_blank">
+                <img src="image-removebg-preview (4).png" alt="NJ TRANSIT Logo" class="logo">
+            </a>
+        </div>
+    </header>
+
+    <div class="form-container">
+        <h2 class="form-title">Claim Status</h2>
+        <form class="space-y-4 mt-6" onsubmit="event.preventDefault(); validateClaimStatus();">
+            <div>
+                <label for="claim-id" class="form-label">Claim ID</label>
+                <input 
+                    type="text" 
+                    id="claim-id" 
+                    class="form-input" 
+                    placeholder="Enter your 10-digit Claim ID" 
+                    maxlength="10" 
+                    pattern="\d{10}" 
+                    required>
+            </div>
+            <button 
+                type="submit" 
+                class="submit-button">
+                Check Status
+            </button>
+        </form>
+    </div>
+</body>
+</html>

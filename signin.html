@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Sign-In</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* NJ TRANSIT blue for header */
+        .bg-nj-blue { background-color: #002D72; }
+        .text-nj-yellow { color: #FFCB05; }
+        .hover-bg-nj-yellow:hover { background-color: #FFCB05; }
+        .focus-ring-nj-blue:focus { border-color: #002D72; }
+
+        /* Style the logo */
+        header a img {
+            max-height: 70px; /* Increased the logo size for zoom effect */
+            width: auto;
+            margin-top: 10px; /* Adjusted spacing */
+        }
+
+        /* Add blue border to sign-in form */
+        .border-nj-blue { border: 2px solid #002D72; }
+    </style>
+    <script>
+        function validateSignIn() {
+            const employeeID = document.getElementById('employee-id').value;
+            const password = document.getElementById('password').value;
+            const employeeIDPattern = /^\d{9}$/;
+
+            if (!employeeIDPattern.test(employeeID)) {
+                alert('Employee ID must be 9 digits.');
+                return;
+            }
+
+            if (employeeID === '123456789' && password === 'Password') {
+                alert('Logged In');
+            } else {
+                alert('Credential Error');
+            }
+        }
+    </script>
+</head>
+<body class="bg-white flex items-center justify-center min-h-screen">
+    <!-- Add header with NJ TRANSIT blue and logo -->
+    <header class="absolute top-0 left-0 w-full p-4 bg-nj-blue">
+        <div class="container mx-auto flex justify-start">
+            <a href="https://www.njtransit.com" target="_blank">
+               <img src="image-removebg-preview (4).png" alt="NJ TRANSIT Logo" class="logo">
+            </a>
+        </div>
+    </header>
+
+    <div class="w-full max-w-md p-8 space-y-6 bg-white border-nj-blue rounded-lg shadow-lg mt-20">
+        <h2 class="text-3xl font-bold text-center text-nj-yellow">Employee Sign-In</h2>
+        <form class="space-y-4 mt-6" onsubmit="event.preventDefault(); validateSignIn();">
+            <div>
+                <label for="employee-id" class="block text-gray-700">Employee ID</label>
+                <input 
+                    type="text" 
+                    id="employee-id" 
+                    class="w-full px-4 py-2 mt-1 border rounded-lg focus:outline-none focus:ring-2 focus-ring-nj-blue" 
+                    placeholder="Enter your 9-digit employee ID" 
+                    maxlength="9" 
+                    pattern="\d{9}" 
+                    required>
+            </div>
+            <div>
+                <label for="password" class="block text-gray-700">Password</label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    class="w-full px-4 py-2 mt-1 border rounded-lg focus:outline-none focus:ring-2 focus-ring-nj-blue" 
+                    placeholder="Enter your password" 
+                    required>
+            </div>
+            <button 
+                type="submit" 
+                class="w-full py-2 mt-4 font-bold text-white bg-nj-blue rounded-lg hover-bg-nj-yellow transition-colors duration-300">
+                Sign In
+            </button>
+        </form>
+        <div class="text-center mt-4">
+            <a href="#" class="text-nj-yellow hover:text-gray-700">Forgot Password?</a>
+        </div>
+    </div>
+</body>
+</html>
