@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Sign-In</title>
+    
+    <!-- Import Tailwind CSS and Roboto Condensed font -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Apply Roboto Condensed font globally */
+        body {
+            font-family: 'Roboto Condensed', sans-serif;
+            position: relative; /* Needed for the pseudo-element */
+            overflow: hidden; /* Prevents scrollbars from showing */
+        }
+
+        /* Background image with fixed position */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url(https://www.progressiverailroading.com/resources/editorial/2019/PR1019-NJTransit.jpg);
+            background-size: cover;
+            background-attachment: fixed; /* Fix the background image */
+            background-position: center; /* Center the background image */
+            opacity: 0.2; /* Decrease opacity to half */
+            z-index: 1; /* Ensure it is behind the content */
+        }
+
+        /* NJ TRANSIT colors */
+        .bg-nj-blue { background-color: #1A2B57; }
+        .text-nj-yellow { color: #FFCB05; }
+        .hover-bg-nj-yellow:hover { background-color: rgba(255, 203, 5, 0.5); }
+        .hover-txt-nj-yellow:hover { color: rgba(255, 203, 5, 0.5); }
+        .focus-ring-nj-blue:focus { border-color: #002D72; }
+
+        /* Style the logo */
+        .logo {
+            max-height: 70px;
+            width: auto;
+            margin-top: 10px;
+        }
+
+        /* Add padding to avoid overlap with the navbar */
+        .content {
+            padding-top: 80px; /* Adjust according to the height of your navbar */
+            position: relative; /* Create a stacking context */
+            z-index: 2; /* Ensure content is above the background */
+        }
+
+        /* Slide-up animation with percentage */
+        @keyframes slideUp {
+            0% { transform: translateY(20%); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Fade-in animation */
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        /* Apply animations */
+        .slide-up { 
+            animation: slideUp 1s ease-out; 
+        }
+        .fade-in {
+            animation: fadeIn 2s ease-out;
+        }
+    </style>
+</head>
+<body class="bg-[#091A28] flex items-center justify-start min-h-screen">
+    <nav class="w-full p-4 bg-nj-blue flex items-center justify-between fixed top-0 left-0 z-10">
+        <!-- Logo on the left -->
+        <div class="flex items-center">
+            <a href="https://www.njtransit.com" target="_blank">
+                <img src="image-removebg-preview (4).png" alt="NJ TRANSIT Logo" class="logo">
+            </a>
+        </div>
+
+        <!-- Navigation links on the right -->
+        <div class="space-x-6 text-white font-semibold">
+            <a href="#home" class="hover-txt-nj-yellow">Employee Portal</a>
+            <a href="#home" class="hover-txt-nj-yellow">Report A Claim</a>
+        </div>
+    </nav>
+
+    <!-- Main content centered in the page -->
+    <div class="text-center text-white space-y-4 content ml-10"> <!-- Added content class -->
+        <!-- Heading with slide-up animation -->
+        <h1 class="text-3xl font-bold slide-up text-nj-yellow">Welcome to the NJ Transit Lost and Found</h1>
+        
+        <!-- Description with slide-up animation -->
+        <p class="text-lg slide-up" style="animation-delay: 0.2s;">Have you lost anything precious to you on our trains, buses, or light rail?</p>
+        <p class="text-lg slide-up" style="animation-delay: 0.2s;">Do not worry! We got you covered.</p>
+        <p class="text-lg slide-up" style="animation-delay: 0.2s;">Just search through our portal or Report a claim.</p>
+        
+        <!-- Button with fade-in animation -->
+        <button class="px-6 py-2 text-nj-yellow bg-nj-blue hover-bg-nj-yellow font-semibold rounded-md focus:outline-none focus:ring-2 focus-ring-nj-blue fade-in" style="animation-delay: 0.5s;">
+            Find a lost item
+        </button>
+    </div>
+</body>
+</html>
