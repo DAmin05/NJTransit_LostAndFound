@@ -1,0 +1,59 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Employee Portal</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Roboto Condensed', sans-serif;
+            position: relative; /* Needed for the pseudo-element */
+            overflow: auto; /* Prevents scrollbars from showing */
+            background-color: #091A28;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        .background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://www.progressiverailroading.com/resources/editorial/2019/PR1019-NJTransit.jpg'); /* Replace with your image URL */
+            background-size: cover;
+            background-position: center;
+            opacity: 0.2; /* Half opacity */
+            z-index: -1; /* Place it behind other content */
+        }
+
+        
+
+
+        /* Navbar */
+        .navbar {
+            background-color: #002D72;
+            padding: 16px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            z-index: 1; /* Ensure navbar is above background */
+        }
+
+        .navbar .logo {
+            height: 70px;
+        }
+        </style>
+    </head>
+    <body>
+        <div class="background-image"></div>
+        <!-- Navigation bar -->
+        <header class="navbar">
+            <a href="https://www.njtransit.com" target="_blank">
+                <img src="image-removebg-preview (4).png" alt="NJ TRANSIT Logo" class="logo">
+            </a>
+        </header>
+        </body>
+</html>

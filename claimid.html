@@ -23,20 +23,78 @@
             }
         }
     </script>
+<style>
+
+        body {
+            font-family: 'Roboto Condensed', sans-serif;
+            position: relative; /* Needed for the pseudo-element */
+            overflow: auto; /* Prevents scrollbars from showing */
+            background-color: #091A28;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        .background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://www.progressiverailroading.com/resources/editorial/2019/PR1019-NJTransit.jpg'); /* Replace with your image URL */
+            background-size: cover;
+            background-position: center;
+            opacity: 0.2; /* Half opacity */
+            z-index: -1; /* Place it behind other content */
+        }
+
+   .navbar {
+            background-color: #002D72; /* Dark background for the navbar */
+            overflow: hidden; /* Clear floats */
+        }
+
+        .navbar a {
+            float: left; /* Align links to the left */
+            display: block; /* Block elements */
+            color: white; /* Text color */
+            text-align: center; /* Center text */
+            padding: 14px 16px; /* Padding around links */
+            text-decoration: none; /* Remove underline */
+        }
+
+        .navbar a:hover {
+            color: #FFCB05; /* Darker background on hover */
+        }
+
+        .navbar .logo {
+            float: left; /* Align logo to the left */
+            height: 65px; /* Set a fixed height for the logo */
+            margin-right: 16px; /* Space between logo and links */
+        }
+
+        /* Responsive design */
+        @media screen and (max-width: 600px) {
+            .navbar a {
+                float: none; /* Stack links on small screens */
+                display: block; /* Make links full width */
+                text-align: left; /* Align text to the left */
+            }
+        }
+</style>
+
 </head>
-<body class="bg-white min-h-screen flex flex-col font-sans">
+<body class="bg-[#091A28] min-h-screen flex flex-col font-sans">
+    <div class="background-image"></div>
     <!-- Fixed Header with NJ TRANSIT blue and logo -->
-    <header class="bg-[#002D72] w-full py-4 fixed top-0 z-10">
-        <div class="container mx-auto px-4 flex justify-start">
-            <a href="https://www.njtransit.com" target="_blank">
-                <img src="image-removebg-preview (4).png" alt="NJ TRANSIT Logo" class="h-16">
-            </a>
-        </div>
+    <header class="navbar">
+        <a href="https://www.njtransit.com" target="_blank">
+            <img src="image-removebg-preview (4).png" alt="NJ TRANSIT Logo" class="logo">
+        </a>
     </header>
 
     <!-- Form Container -->
     <div class="flex-grow flex items-center justify-center mt-20">
-        <div class="bg-gray-100 p-10 border-2 border-[#002D72] rounded-lg w-[400px] text-center">
+        <div class="bg-gray-100 opacity-85 p-10 border-2 border-[#002D72] rounded-lg w-[400px] text-center">
             <!-- Claim Status Title -->
             <h2 class="text-2xl font-bold text-[#FFCB05] mb-6">Claim Status</h2>
             <form class="space-y-4" onsubmit="event.preventDefault(); validateClaimStatus();">
