@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lost Item Found</title>
+    <style>
+        body {
+            font-family: 'Roboto Condensed', sans-serif;
+            position: relative; /* Needed for the pseudo-element */
+            overflow: auto; /* Prevents scrollbars from showing */
+            background-color: #091A28;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        .background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://www.progressiverailroading.com/resources/editorial/2019/PR1019-NJTransit.jpg'); /* Replace with your image URL */
+            background-size: cover;
+            background-position: center;
+            opacity: 0.2; /* Half opacity */
+            z-index: -1; /* Place it behind other content */
+        }
+
+        
+
+
+        /* Navbar */
+        .navbar {
+            background-color: #002D72; /* Dark background for the navbar */
+            overflow: hidden; /* Clear floats */
+        }
+
+        .navbar a {
+            float: left; /* Align links to the left */
+            display: block; /* Block elements */
+            color: white; /* Text color */
+            text-align: center; /* Center text */
+            padding: 14px 16px; /* Padding around links */
+            text-decoration: none; /* Remove underline */
+        }
+
+        .navbar a:hover {
+            background-color: #575757; /* Darker background on hover */
+        }
+
+        .navbar .logo {
+            float: left; /* Align logo to the left */
+            height: 65px; /* Set a fixed height for the logo */
+            margin-right: 16px; /* Space between logo and links */
+        }
+
+        /* Responsive design */
+        @media screen and (max-width: 600px) {
+            .navbar a {
+                float: none; /* Stack links on small screens */
+                display: block; /* Make links full width */
+                text-align: left; /* Align text to the left */
+            }
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Main Form */
+        .main-form {
+            margin-top: 20px;
+            padding: 20px;
+            border: 2px solid #002D72;
+            border-radius: 8px;
+            background-color: #FFFFFF;
+            opacity: 0.85;
+        }
+
+        /* Form Heading */
+        .form-heading {
+            font-size: 28px;
+            font-weight: bold;
+            color: #FFCB05;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Form Group */
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        /* Form Row */
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 50px;
+            margin-bottom: 30px;
+        }
+
+        .form-col {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .form-middle {
+            margin-top: 10px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #002D72;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+        }
+
+        /* Input Box */
+        .input-box {
+            font-family: 'Arial', sans-serif;
+            width: 100%;
+            padding: 10px;
+            margin-top: 8px;
+            border: 1px solid #CBD5E0;
+            border-radius: 5px;
+        }
+
+        .input-box:focus {
+            outline: none;
+            border: 1px solid #FFCB05;
+            box-shadow: 0 0 5px rgba(255, 203, 5, 0.5);
+        }
+
+        .input-box:hover {
+            border: 1px solid #FFCB05;
+            box-shadow: 0 0 5px rgba(255, 203, 5, 0.5);
+        }
+
+        /* Specific Width for Name, Email, and Contact */
+        .input-wide {
+            width: 1180px; /* Adjust width as needed */
+        }
+
+        /* Buttons */
+        .button {
+            font-family: 'Arial', sans-serif;
+            background-color: #002D72;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .button:hover {
+            background-color: #FFCB05;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        button:focus {
+            outline: none;
+        }
+
+        /* Vertical spacing for left column inputs */
+        .form-col input {
+            margin-bottom: 20px;
+        }
+
+        /* Adjusting right column input boxes */
+        .form-col.right-side input {
+            font-family: 'Arial', sans-serif;
+            width: 510px;
+        }
+
+        /* Train Line Container */
+        .train-line-container {
+            margin-top: 20px;
+        }
+
+        .required-asterisk {
+            color: red;
+            margin-left: 4px;
+        }
+    </style>
+    <script>
+        function validateForm() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const contact = document.getElementById('contact').value;
+
+            const namePattern = /^[A-Za-z\s]+$/;
+            const contactPattern = /^\d{10}$/;
+
+            // Check if the name contains only letters
+            if (!namePattern.test(name)) {
+                alert('Name should contain only letters and spaces.');
+                return false;
+            }
+
+            // Check if the contact contains exactly 10 digits
+            if (!contactPattern.test(contact)) {
+                alert('Contact number must be exactly 10 digits.');
+                return false;
+            }
+
+            // Check if either bus route or train fields are filled
+        const busRoute = document.getElementById('bus-route').value.trim();
+        const busStop = document.getElementById('bus-stop').value.trim();
+        const trainStation = document.getElementById('train-station').value.trim();
+        const trainLine = document.getElementById('train-line').value.trim();
+
+            
+
+            // Check if either bus route or train fields are filled
+            if (!busRoute && !trainStation && !trainLine) {
+            alert("Please fill out at least one of the Bus or Train options.");
+            event.preventDefault(); // Prevent form submission
+        }
+    }
+
+        function resetForm() {
+            document.getElementById('form').reset();
+        }
+    </script>
+</head>
+<body>
+    <div class="background-image"></div>
+    <!-- Fixed Header with NJ TRANSIT blue and logo -->
+    <header class="navbar">
+        <a href="https://www.njtransit.com" target="_blank">
+            <img src="image-removebg-preview (4).png" alt="NJ TRANSIT Logo" class="logo">
+        </a>
+    </header>
+
+
+    <!-- Main form section -->
+    <div class="container main-form">
+        <h1 class="form-heading">Find A Lost Item</h1>
+        <form id="form" onsubmit="return validateForm()">
+            <div class="form-group">
+                <!-- Name Input -->
+                <div>
+                    <label for="name">Name <span class="required-asterisk">*</span></label>
+                    <input type="text" id="name" class="input-box input-wide" placeholder="Enter your name" required>
+                </div>
+
+                <!-- Email ID Input -->
+                <div>
+                    <label for="email">Email ID <span class="required-asterisk">*</span></label>
+                    <input type="email" id="email" class="input-box input-wide" placeholder="Enter your email ID" required>
+                </div>
+
+                <!-- Contact Input -->
+                <div>
+                    <label for="contact">Contact <span class="required-asterisk">*</span></label>
+                    <input type="text" id="contact" class="input-box input-wide" placeholder="Enter your contact number" maxlength="10" required>
+                </div>
+
+                <!-- Category Dropdown -->
+                <div>
+                    <label for="category">Category</label>
+                    <select id="category" class="input-box">
+                        <option value="">Select Category</option>
+                        <option value="Art/Photos">Art/Photos</option>
+                        <option value="Baby Items">Baby Items</option>
+                        <option value="Bag">Bag</option>
+                        <option value="Books/Writing Instruments">Books/Writing Instruments</option>
+                        <option value="Cell Phone">Cell Phone</option>
+                        <option value="Clothing">Clothing</option>
+                        <option value="Electronics/Accessories">Electronics/Accessories</option>
+                        <option value="Household Goods/Appliances">Household Goods/Appliances</option>
+                        <option value="ID Cards">ID Cards</option>
+                        <option value="Jewelry">Jewelry</option>
+                        <option value="Medical Field Related">Medical Field Related</option>
+                        <option value="Misc">Misc</option>
+                        <option value="None">None</option>
+                        <option value="Perishables">Perishables</option>
+                        <option value="Personal Accessories">Personal Accessories</option>
+                        <option value="Shoes">Shoes</option>
+                        <option value="Sports/Recreation">Sports/Recreation</option>
+                        <option value="Tickets">Tickets</option>
+                        <option value="Toys">Toys</option>
+                        <option value="Wallet">Wallet</option>
+                    </select>
+                </div>
+
+
+                <!-- Bus and Train Input Boxes -->
+                <div class="form-row">
+                    <div class="form-col">
+                        <label for="bus-route">Bus Route <span class="required-asterisk">*</span></label>
+                        <input type="text" id="bus-route" class="input-box" placeholder="Enter Bus Route">
+
+                        <label for="bus-stop">Bus Stop</label>
+                        <input type="text" id="bus-stop" class="input-box" placeholder="Enter Bus Stop">
+                    </div>
+
+                    <!-- Middle 'OR' Text -->
+                    <div class="form-middle">
+                        <span>OR</span>
+                    </div>
+
+                    <div class="form-col right-side">
+                        <!-- Train Station Dropdown -->
+                        <label for="train-station">Train Station <span class="required-asterisk">*</span></label>
+                        <select id="train-station" class="input-box">
+                            <option value="">Select Station 
+                            </option>
+                            <option value="1180~RAILYARD">001 Dover Trainyard
+                            </option>
+                            <option value="1220~RAILYARD">002 Suffern Trainyard
+                            </option>
+                            <option value="1221~RAILYARD">003 Bayhead Trainyard
+                            </option>
+                            <option value="1222~RAILYARD">004 Morrisville Trainyard
+                            </option>
+                            <option value="1240~RAILYARD">005 Sunnyside Trainyard
+                            </option>
+                            <option value="4~HBLR">22nd Street
+                            </option>
+                            <option value="1~HBLR">2nd Street 
+                            </option>
+                            <option value="5~SEPTA">30th Street
+                            </option>
+                            <option value="6~HBLR">34th Street
+                            </option>
+                            <option value="7~RIVER LINE">36th Street
+                            </option>
+                            <option value="2~PATCO">8th St &amp; Market St
+                            </option>
+                            <option value="1340~HBLR">8th Street
+                            </option>
+                            <option value="3~HBLR">9th Street/Congress Street
+                            </option>
+                            <option value="8~NJC">Aberdeen-Matawan
+                            </option>
+                            <option value="9~AC">Absecon
+                            </option>
+                            <option value="10~BCL">Allendale
+                            </option>
+                            <option value="11~NJC">Allenhurst
+                            </option>
+                            <option value="12~PVL">Anderson St
+                            </option>
+                            <option value="13~RVL">Annandale
+                            </option>
+                            <option value="41~RIVER LINE">Aquarium
+                            </option>
+                            <option value="14~NJC">Asbury Park
+                            </option>
+                            <option value="15~PATCO">Ashland
+                            </option>
+                            <option value="16~AC">Atco
+                            </option>
+                            <option value="17~AC">Atlantic City
+                            </option>
+                            <option value="1202~AC - ACES">Atlc City Aces
+                            </option>
+                            <option value="18~NJC">Avenel
+                            </option>
+                            <option value="19~ME">Basking Ridge
+                            </option>
+                            <option value="21~NJC">Bay Head
+                            </option>
+                            <option value="20~MTC/BOONTON">Bay Street
+                            </option>
+                            <option value="22~NJC">Belmar
+                            </option>
+                            <option value="1121~HBLR">Bergenline Ave
+                            </option>
+                            <option value="23~ME">Berkeley Heights
+                            </option>
+                            <option value="24~ME">Bernardsville
+                            </option>
+                            <option value="25~RIVER LINE">Beverly/Edgewater Park
+                            </option>
+                            <option value="26~MTC/BOONTON">Bloomfield
+                            </option>
+                            <option value="27~City Subway">Bloomfield Ave
+                            </option>
+                            <option value="28~MTC/BOONTON">Boonton
+                            </option>
+                            <option value="29~RIVER LINE">Bordentown
+                            </option>
+                            <option value="30~RVL">Bound Brook
+                            </option>
+                            <option value="31~NJC">Bradley Beach
+                            </option>
+                            <option value="32~City Subway">Branch Brook Park Sta
+                            </option>
+                            <option value="33~ME">Brick Church
+                            </option>
+                            <option value="34~RVL">Bridgewater
+                            </option>
+                            <option value="35~ME">Broad Street
+                            </option>
+                            <option value="36~City Subway">Broad Street (Subway)
+                            </option>
+                            <option value="38~BCL">Broadway
+                            </option>
+                            <option value="39~RIVER LINE">Burlington South
+                            </option>
+                            <option value="40~RIVER LINE">Burlington Towne Center
+                            </option>
+                            <option value="44~MTA">Campbell Hall
+                            </option>
+                            <option value="45~RIVER LINE">Cass Street
+                            </option>
+                            <option value="46~ME">Chatham
+                            </option>
+                            <option value="47~AC">Cherry Hill 
+                            </option>
+                            <option value="49~RIVER LINE">Cinnaminson
+                            </option>
+                            <option value="48~PATCO">City Hall
+                            </option>
+                            <option value="50~ML">Clifton
+                            </option>
+                            <option value="51~PATCO">Collingswood
+                            </option>
+                            <option value="52~ME">Convent
+                            </option>
+                            <option value="53~RVL">Cranford
+                            </option>
+                            <option value="54~HBLR">Danforth Ave
+                            </option>
+                            <option value="55~City Subway">Davenport Ave
+                            </option>
+                            <option value="56~RIVER LINE">Delanco
+                            </option>
+                            <option value="57~ML">Delawanna
+                            </option>
+                            <option value="58~MTC/BTN&amp;ME">Denville
+                            </option>
+                            <option value="59~MTC/BTN&amp;ME">Dover
+                            </option>
+                            <option value="60~RVL">Dunellen
+                            </option>
+                            <option value="1280~EWR">EWR
+                            </option>
+                            <option value="61~HBLR">East 45th Street
+                            </option>
+                            <option value="1320~ME">East Orange
+                            </option>
+                            <option value="62~NEC">Edison
+                            </option>
+                            <option value="63~AC">Egg Harbor
+                            </option>
+                            <option value="64~NJC">Elberon
+                            </option>
+                            <option value="65~NEC/NJC">Elizabeth
+                            </option>
+                            <option value="66~PVL">Emerson
+                            </option>
+                            <option value="42~RIVER LINE">Entertainment Center
+                            </option>
+                            <option value="67~PVL">Essex Street
+                            </option>
+                            <option value="68~HBLR">Essex Street (LR)
+                            </option>
+                            <option value="69~HBLR">Exchange Place (LR)
+                            </option>
+                            <option value="70~PATH">Exchange Place (PATH)
+                            </option>
+                            <option value="71~RVL">Fanwood
+                            </option>
+                            <option value="72~ME">Far Hills/Bedminster
+                            </option>
+                            <option value="73~PATCO">Ferry Ave
+                            </option>
+                            <option value="74~RVL">Findere/Manville
+                            </option>
+                            <option value="75~RIVER LINE">Florence
+                            </option>
+                            <option value="76~BCL">Garfield
+                            </option>
+                            <option value="77~HBLR">Garfield Ave
+                            </option>
+                            <option value="78~RVL">Garwood
+                            </option>
+                            <option value="79~ME">Gillette
+                            </option>
+                            <option value="80~ME">Gladstone
+                            </option>
+                            <option value="81~MTC/BOONTON">Glen Ridge
+                            </option>
+                            <option value="83~ML">Glen Rock
+                            </option>
+                            <option value="82~BCL">Glen Rock [ Boro Hall ]
+                            </option>
+                            <option value="84~MTC/BOONTON">Great Notch
+                            </option>
+                            <option value="86~PATH">Grove Street (Path)
+                            </option>
+                            <option value="85~City Subway">Grove Street (Subway)
+                            </option>
+                            <option value="87~MTC/BTN&amp;ME">Hackettstown
+                            </option>
+                            <option value="88~PATCO">Haddonfield
+                            </option>
+                            <option value="89~RIVER LINE">Hamilton Ave
+                            </option>
+                            <option value="90~NEC">Hamilton RR Station
+                            </option>
+                            <option value="91~AC">Hammonton
+                            </option>
+                            <option value="92~HBLR">Harborside
+                            </option>
+                            <option value="94~BCL">Harmon Cove Sta
+                            </option>
+                            <option value="95~MTA">Harriman
+                            </option>
+                            <option value="96~PATH">Harrison 
+                            </option>
+                            <option value="93~HBLR">Harsimus Cove
+                            </option>
+                            <option value="97~ML">Hawthorne
+                            </option>
+                            <option value="98~NJC">Hazlet
+                            </option>
+                            <option value="99~City Subway">Heller Parkway
+                            </option>
+                            <option value="100~RVL">High Bridge
+                            </option>
+                            <option value="101~ME">Highland Ave
+                            </option>
+                            <option value="102~PVL">Hillsdale
+                            </option>
+                            <option value="103~BCL/ML">Ho-Ho-Kus
+                            </option>
+                            <option value="105~ME/PVL/BTN">Hoboken
+                            </option>
+                            <option value="104~HBLR">Hoboken (LR)
+                            </option>
+                            <option value="106~PATH">Hoboken (PATH)
+                            </option>
+                            <option value="107~NEC">Jersey Ave
+                            </option>
+                            <option value="108~HBLR">Jersey Ave (LR)
+                            </option>
+                            <option value="109~PATH">Journal Square
+                            </option>
+                            <option value="110~ML">Kingsland
+                            </option>
+                            <option value="111~MTC/BTN&amp;ME">Lake Hopatong/Landing
+                            </option>
+                            <option value="112~RVL">Lebanon
+                            </option>
+                            <option value="113~HBLR">Liberty State Park
+                            </option>
+                            <option value="114~HBLR">Lincoln Harbor 
+                            </option>
+                            <option value="115~MTC/BOONTON">Lincoln Park
+                            </option>
+                            <option value="116~NEC/NJC">Linden
+                            </option>
+                            <option value="118~AC">Lindenwold
+                            </option>
+                            <option value="119~MTC/BOONTON">Little Falls
+                            </option>
+                            <option value="120~NJC">Little Silver
+                            </option>
+                            <option value="121~PATCO">Locust St betw 12th St &amp; 13th St
+                            </option>
+                            <option value="122~PATCO">Locust St betw 15th St &amp; 16th St
+                            </option>
+                            <option value="123~PATCO">Locust St betw 9th St &amp; 10th St
+                            </option>
+                            <option value="124~NJC">Long Branch
+                            </option>
+                            <option value="125~ML">Lyndhurst
+                            </option>
+                            <option value="126~ME">Lyons
+                            </option>
+                            <option value="127~ME">Madison
+                            </option>
+                            <option value="128~BCL/ML">Mahwah
+                            </option>
+                            <option value="129~NJC">Manasquan
+                            </option>
+                            <option value="130~ME">Maplewood
+                            </option>
+                            <option value="131~HBLR">Marin Blvd
+                            </option>
+                            <option value="132~SEPTA">Market St East
+                            </option>
+                            <option value="133~SEPTA">Market St East [ Westend ]
+                            </option>
+                            <option value="134~HBLR">Martin Luther King Drive
+                            </option>
+                            <option value="1261~ML">Meadowlands Rail Line
+                            </option>
+                            <option value="135~NEC">Metropark/Iselin
+                            </option>
+                            <option value="136~NEC">Metuchen
+                            </option>
+                            <option value="137~NJC">Middletown
+                            </option>
+                            <option value="138~MTA">Middletown (MTA)
+                            </option>
+                            <option value="139~ME">Millburn
+                            </option>
+                            <option value="140~ME">Millington
+                            </option>
+                            <option value="141~NJC">Monmouth Park
+                            </option>
+                            <option value="142~MTC/BOONTON">Montclair Heights
+                            </option>
+                            <option value="143~MTC/BOONTON">Montclair State University
+                            </option>
+                            <option value="144~PVL">Montvale
+                            </option>
+                            <option value="145~ME">Morris Plains
+                            </option>
+                            <option value="146~ME">Morristown
+                            </option>
+                            <option value="1160~Nec">Morrisville Yard
+                            </option>
+                            <option value="147~MTC/BTN&amp;ME">Mount Olive
+                            </option>
+                            <option value="148~ME">Mount Tabor
+                            </option>
+                            <option value="149~ME">Mountain
+                            </option>
+                            <option value="150~MTC/BOONTON">Mountain Ave
+                            </option>
+                            <option value="151~MTC/BOONTON">Mountain Lakes
+                            </option>
+                            <option value="152~MTC/BOONTON">Mountainview
+                            </option>
+                            <option value="1141~MTC/BOONTO">Mt Arlington
+                            </option>
+                            <option value="153~ME">Murray Hill
+                            </option>
+                            <option value="237~ME/NEC">NY Penn Station
+                            </option>
+                            <option value="154~PVL">Nanuet
+                            </option>
+                            <option value="155~MTC/BTN&amp;ME">Netcong/Stanhope
+                            </option>
+                            <option value="157~RVL">Netherwood
+                            </option>
+                            <option value="163~PVL">New Bridge Landing
+                            </option>
+                            <option value="158~NEC">New Brunswick
+                            </option>
+                            <option value="159~ME">New Providence
+                            </option>
+                            <option value="176~NEC/NJC/RVL">Newark Penn Station
+                            </option>
+                            <option value="156~HBLR">Newport
+                            </option>
+                            <option value="1000~None">None
+                            </option>
+                            <option value="160~City Subway">Norfolk Street
+                            </option>
+                            <option value="161~RVL">North Branch
+                            </option>
+                            <option value="162~NEC/NJC">North Elizabeth
+                            </option>
+                            <option value="164~PVL">Oradell
+                            </option>
+                            <option value="165~ME">Orange
+                            </option>
+                            <option value="166~City Subway">Orange Street
+                            </option>
+                            <option value="167~MTA">Otisville
+                            </option>
+                            <option value="168~RIVER LINE">Palmyra
+                            </option>
+                            <option value="169~City Subway">Park Ave City
+                            </option>
+                            <option value="170~PVL">Park Ridge
+                            </option>
+                            <option value="171~ML">Passaic
+                            </option>
+                            <option value="172~ML">Paterson Market St
+                            </option>
+                            <option value="173~PATH">Pavonia-Newport
+                            </option>
+                            <option value="174~ME">Peapack
+                            </option>
+                            <option value="175~PVL">Pearl River
+                            </option>
+                            <option value="177~City Subway">Penn Station (Subway)
+                            </option>
+                            <option value="1360~AC/RIVER LINE">Pennsauken Transit Center
+                            </option>
+                            <option value="178~RIVER LINE">Pennsauken/Rte 73
+                            </option>
+                            <option value="179~NJC">Perth Amboy
+                            </option>
+                            <option value="180~RVL">Plainfield/North Plainfield
+                            </option>
+                            <option value="181~BCL">Plauderville
+                            </option>
+                            <option value="1122~HBLR">Port Imperial
+                            </option>
+                            <option value="182~MTA">Port Jervis
+                            </option>
+                            <option value="183~NEC">Princeton
+                            </option>
+                            <option value="184~NEC">Princeton Junction
+                            </option>
+                            <option value="185~NJC">Pt Pleasant
+                            </option>
+                            <option value="186~BCL">Radburn
+                            </option>
+                            <option value="187~NEC/NJC">Rahway
+                            </option>
+                            <option value="188~BCL/ML">Ramsey
+                            </option>
+                            <option value="189~BCL/ML">Ramsey Route 17
+                            </option>
+                            <option value="190~RVL">Raritan
+                            </option>
+                            <option value="191~NJC">Red Bank
+                            </option>
+                            <option value="192~HBLR">Richard Street
+                            </option>
+                            <option value="193~BCL/ML">Ridgewood
+                            </option>
+                            <option value="194~PVL">River Edge
+                            </option>
+                            <option value="195~RIVER LINE">Riverside
+                            </option>
+                            <option value="196~RIVER LINE">Riverton
+                            </option>
+                            <option value="197~RIVER LINE">Roebling
+                            </option>
+                            <option value="198~RVL">Roselle Park
+                            </option>
+                            <option value="199~BCL">Rutherford
+                            </option>
+                            <option value="200~MTA">Salisbury Mill/Cornwall
+                            </option>
+                            <option value="1101~NEC/NJC/M&amp;E">Secaucus Sta
+                            </option>
+                            <option value="203~ME">Short Hills
+                            </option>
+                            <option value="202~City Subway">Silver Lake
+                            </option>
+                            <option value="204~MTA">Sloatsburg
+                            </option>
+                            <option value="205~RVL">Somerville
+                            </option>
+                            <option value="206~NJC">South Amboy
+                            </option>
+                            <option value="207~ME">South Orange
+                            </option>
+                            <option value="208~NJC">Spring Lake
+                            </option>
+                            <option value="209~PVL">Spring Valley
+                            </option>
+                            <option value="210~ME">Stirling
+                            </option>
+                            <option value="211~SEPTA">Suburban
+                            </option>
+                            <option value="212~MTA">Suffern
+                            </option>
+                            <option value="213~ME">Summit
+                            </option>
+                            <option value="214~PVL">Teterboro
+                            </option>
+                            <option value="1120~HBLR">Tonnelle Ave
+                            </option>
+                            <option value="215~MTC/BOONTON">Towaco
+                            </option>
+                            <option value="216~NEC">Trenton Transit Center
+                            </option>
+                            <option value="217~RIVER LINE">Trenton Transit Center (LR)
+                            </option>
+                            <option value="218~MTA">Tuxedo
+                            </option>
+                            <option value="219~RVL">Union Station
+                            </option>
+                            <option value="220~MTC/BOONTON">Upper Montclair
+                            </option>
+                            <option value="221~BCL/ML">Waldwick
+                            </option>
+                            <option value="222~MTC/BOONTON">Walnut Street
+                            </option>
+                            <option value="43~RIVER LINE">Walter Rand Transportation Center
+                            </option>
+                            <option value="223~City Subway">Warren Street
+                            </option>
+                            <option value="1300~City Subway">Washington Park
+                            </option>
+                            <option value="224~City Subway">Washington Street
+                            </option>
+                            <option value="225~MTC/BOONTON">Watchung Ave
+                            </option>
+                            <option value="226~MTC/BOONTON">Watsessing Ave
+                            </option>
+                            <option value="1140~MTC/BOONTO">Wayne 23 Ctr
+                            </option>
+                            <option value="1380~BCL">Wesmont
+                            </option>
+                            <option value="227~SEPTA">West Trenton
+                            </option>
+                            <option value="228~RVL">Westfield
+                            </option>
+                            <option value="229~PATCO">Westmont
+                            </option>
+                            <option value="230~HBLR">Westside Ave
+                            </option>
+                            <option value="231~PVL">Westwood
+                            </option>
+                            <option value="232~RVL">White House
+                            </option>
+                            <option value="233~PVL">Wood-Ridge
+                            </option>
+                            <option value="234~NJC">Woodbridge
+                            </option>
+                            <option value="235~PVL">Woodcliff Lake
+                            </option>
+                            <option value="236~PATCO">Woodcrest 
+                            </option>
+                        </select>
+
+                        <!-- Train Line -->
+                        <div class="train-line-container">
+                            <label for="train-line">Train Line <span class="required-asterisk">*</span></label>
+                            <input type="text" id="train-line" class="input-box" placeholder="Enter Train Line">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit and Reset Buttons -->
+                <div class="form-actions">
+                    <button type="submit" class="button">Submit</button>
+                    <button type="reset" class="button" onclick="resetForm()">Reset</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
